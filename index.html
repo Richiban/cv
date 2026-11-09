@@ -339,32 +339,112 @@
           size: A4;
           margin: 0;
         }
-        html,
+        /* The root background is painted on every printed page, which gives
+           the sidebar rail its full-height background on each page. */
+        html {
+          background: linear-gradient(
+            to right,
+            var(--rail) 31%,
+            var(--white) 31%
+          );
+        }
         body {
-          background: white;
+          background: transparent;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
         body {
           font-size: 10pt;
         }
+        /* Browsers may lay the page out narrower than 760px when printing,
+           which would trigger the mobile layout. Restore the desktop
+           two-column layout explicitly so the PDF matches the screen. */
+        /* Grids fragment badly across printed pages (blank pages, stray
+           gaps), so print uses a floated sidebar in plain block flow. */
         .cv {
+          display: block;
           width: 100%;
+          min-height: 0;
           box-shadow: none;
-          grid-template-columns: 31% 69%;
+          background: transparent;
+        }
+        .identity h1 {
+          font-size: 40pt;
         }
         .sidebar {
+          float: left;
+          width: 31%;
           padding: 12mm 8mm;
+          background: transparent;
         }
         .content {
+          margin-left: 31%;
           padding: 13mm 11mm;
+        }
+        .content > section {
+          display: block;
+          position: relative;
+          padding-left: 28px;
+        }
+        .section-number {
+          position: absolute;
+          top: 0;
+          left: 0;
+          writing-mode: vertical-rl;
+          margin: 0;
+        }
+        .job-skills {
+          display: block;
+        }
+        .job-skills li {
+          display: inline-block;
+          margin: 0 6px 6px 0;
         }
         .content > section + section {
           margin-top: 10mm;
         }
-        .job,
+        .job {
+          margin-left: calc(var(--space) * 3);
+          padding-left: calc(var(--space) * 1.5);
+        }
+        /* A tall unbreakable box, cancelled by the negative margin, so the
+           date marker jumps to the next page with its job instead of being
+           stranded at the foot of a page. */
+        .timeline-point {
+          position: relative;
+          height: 6px;
+          margin: 0 0 -30mm calc(var(--space) * 3);
+          padding: 0 0 30mm calc(var(--space) * 2);
+          break-inside: avoid;
+          break-after: avoid;
+        }
+        /* Keep the dot and date inside the marker's box; anything above it
+           would bleed onto the previous page at a page boundary. */
+        .timeline-point::before {
+          top: 1px;
+          left: -5px;
+        }
+        .timeline-point time {
+          position: absolute;
+          top: -1px;
+          width: 92px;
+          text-align: right;
+        }
+        .job header,
+        .job > p,
+        .achievements li,
+        .job-skills,
         .qualification {
           break-inside: avoid;
         }
-        .timeline-point {
+        .job,
+        .job-skills {
+          break-before: avoid;
+        }
+        .job header {
+          break-before: avoid;
           break-after: avoid;
         }
         a {

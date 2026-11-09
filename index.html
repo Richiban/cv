@@ -18,12 +18,31 @@
         --accent: #ec5c35;
         --line: #b9c5be;
         --white: #fffdf8;
+        --canvas: #cad0cb;
+        --body-text: #3d4743;
+        --shadow: rgb(23 33 30 / 12%);
+        color-scheme: light;
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        :root {
+          --ink: #e9e7df;
+          --muted: #9ba59f;
+          --paper: #141c19;
+          --rail: #1d2b26;
+          --accent: #ff7a52;
+          --line: #3a4a43;
+          --white: #1a2420;
+          --canvas: #0c1210;
+          --body-text: #c3cac5;
+          --shadow: rgb(0 0 0 / 45%);
+          color-scheme: dark;
+        }
       }
       * {
         box-sizing: border-box;
       }
       html {
-        background: #cad0cb;
+        background: var(--canvas);
       }
       body {
         margin: 0;
@@ -48,7 +67,7 @@
         display: grid;
         grid-template-columns: minmax(270px, 31%) 1fr;
         background: var(--white);
-        box-shadow: 0 16px 50px rgb(23 33 30 / 12%);
+        box-shadow: 0 16px 50px var(--shadow);
       }
       .sidebar {
         padding: calc(var(--space) * 2.5) calc(var(--space) * 2.5);
@@ -201,7 +220,7 @@
       }
       .profile p:not(.lead),
       .job > p {
-        color: #3d4743;
+        color: var(--body-text);
       }
       .profile p:not(.lead) {
         max-width: 66ch;

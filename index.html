@@ -8,6 +8,12 @@
       content="Richard Gibson — software engineer specialising in robust, scalable systems."
     />
     <title>Richard Gibson — Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+    />
     <style>
       :root {
         --space: 14px;
@@ -48,14 +54,13 @@
         margin: 0;
         color: var(--ink);
         background: var(--paper);
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
         font-size: 15px;
         line-height: 1.5;
       }
       a {
         color: inherit;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 3px;
+        text-decoration: none;
       }
       a:hover {
         color: var(--accent);
@@ -82,9 +87,10 @@
         margin: 0 0 calc(var(--space) * 1.1429);
         color: var(--accent);
         font:
-          700 11px/1 Arial,
+          700 11px/1 Inter,
+          system-ui,
           sans-serif;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.17em;
         text-transform: uppercase;
       }
       h1 {
@@ -94,12 +100,10 @@
           serif;
         letter-spacing: -0.055em;
       }
+      /* .role shares the .eyebrow label style; it only adds spacing. */
       .role {
         margin: calc(var(--space) * 1.5) 0 0;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
+        line-height: 1.4;
       }
       .contact {
         display: grid;
@@ -124,7 +128,8 @@
       .sidebar h2,
       .content h2 {
         margin: 0 0 calc(var(--space) * 1.4286);
-        font-size: 12px;
+        font-size: 11px;
+        font-weight: 700;
         letter-spacing: 0.17em;
         text-transform: uppercase;
       }
@@ -174,8 +179,11 @@
         font-size: 13px;
       }
       /* Repo paths are only shown in print, where links are not clickable. */
+      /* The repo path is written out so it survives printing. */
       .plain-list .repo {
-        display: none;
+        display: block;
+        font-size: 12px;
+        word-break: break-all;
       }
       .compact-list li {
         margin-bottom: calc(var(--space) * 0.5);
@@ -193,7 +201,7 @@
           clamp(
             calc(var(--space) * 2),
             6vw,
-            calc(var(--space) * 3)
+            calc(var(--space) * 2)
           );
       }
       .content > section {
@@ -227,7 +235,7 @@
       }
       .job {
         position: relative;
-        margin-left: calc(var(--space) * 3);
+        margin-left: calc(var(--space) * 1);
         padding: var(--space) 0 calc(var(--space) * 1)
           calc(var(--space) * 1.5);
         border-left: 1px solid var(--line);
@@ -235,7 +243,7 @@
       .timeline-point {
         position: relative;
         height: 1px;
-        margin: 0 0 0 calc(var(--space) * 3);
+        margin: 0 0 0 calc(var(--space) * 1 + 1px);
         padding-left: calc(var(--space) * 2);
       }
       .timeline-point::before {
@@ -253,12 +261,15 @@
       .timeline-point:first-of-type::before {
         background: var(--accent);
       }
+      /* Pin the date's right edge 12px left of the dot and centre it on the
+         dot's vertical midpoint, so one- and two-line dates line up alike. */
       .timeline-point time {
         position: absolute;
-        top: -9px;
-        left: -112px;
-        width: 92px;
+        right: calc(100% + 3ch);
+        top: -1.5px;
+        transform: translateY(-50%);
         margin: 0;
+        white-space: nowrap;
         color: var(--muted);
         font-size: 11px;
         font-weight: 700;
@@ -272,9 +283,9 @@
       .company {
         margin: 0 0 calc(var(--space) * 0.2143);
         color: var(--accent);
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.14em;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.17em;
         text-transform: uppercase;
       }
       .job h3,
@@ -354,6 +365,7 @@
         .timeline-point time {
           position: static;
           width: auto;
+          transform: none;
           text-align: left;
         }
       }
@@ -451,8 +463,8 @@
         }
         .timeline-point time {
           position: absolute;
-          top: -1px;
-          width: 92px;
+          top: 5.5px;
+          transform: translateY(-50%);
           text-align: right;
         }
         .job header,
@@ -470,13 +482,8 @@
           break-before: avoid;
           break-after: avoid;
         }
-        a {
-          text-decoration: none;
-        }
         .plain-list .repo {
-          display: block;
           font-size: 9pt;
-          word-break: break-all;
         }
       }
     </style>
@@ -603,7 +610,7 @@
           <p class="section-number" aria-hidden="true">02</p>
           <div>
             <h2 id="experience-heading">Experience</h2>
-            <p class="timeline-point"><time>Present</time></p>
+            <p class="timeline-point"><time>Now</time></p>
             <article class="job">
               <header>
                 <div>
@@ -691,7 +698,7 @@
             </article>
 
             <p class="timeline-point">
-              <time datetime="2024-08">Aug 2024</time>
+              <time datetime="2024-08">Aug<br/>2024</time>
             </p>
             <article class="job">
               <header>
@@ -733,7 +740,7 @@
             </article>
 
             <p class="timeline-point">
-              <time datetime="2022-06">Jun 2022</time>
+              <time datetime="2022-06">Jun<br/>2022</time>
             </p>
             <article class="job">
               <header>
@@ -779,7 +786,7 @@
             </article>
 
             <p class="timeline-point">
-              <time datetime="2013-09">Sep 2013</time>
+              <time datetime="2013-09">Sep<br/>2013</time>
             </p>
             <article class="job">
               <header>
@@ -809,7 +816,7 @@
             </article>
 
             <p class="timeline-point">
-              <time datetime="2011-05">May 2011</time>
+              <time datetime="2011-05">May<br/>2011</time>
             </p>
             <article class="job">
               <header>
@@ -829,7 +836,7 @@
               </ul>
             </article>
             <p class="timeline-point">
-              <time datetime="2008-11">Nov 2008</time>
+              <time datetime="2008-11">Nov<br/>2008</time>
             </p>
           </div>
         </section>
